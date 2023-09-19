@@ -1,8 +1,13 @@
+# Nom de l'auteur : Michaël Boucher
+# Date de création : 19 septembre 2023
+# Copyright (c) 2023 Michaël Boucher. Tous droits réservés.
+
 from PyQt5.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QPushButton, QLabel, QLineEdit, QFileDialog,
-    QCheckBox, QHBoxLayout, QMessageBox, QStackedWidget, QDialog, QGridLayout
+    QCheckBox, QHBoxLayout, QMessageBox, QStackedWidget, QGridLayout, QDialog
 )
 from PyQt5.QtCore import Qt
+from PyQt5.QtWebEngineWidgets import QWebEngineView
 from styles import button_styles, app_style, white_text, white_edit_background
 
 class HelpWindow(QDialog):
@@ -10,23 +15,18 @@ class HelpWindow(QDialog):
         super().__init__()
 
         self.setWindowTitle("Aide Raptor Import")
-        self.setFixedSize(400, 200)
+        self.setFixedSize(800, 600)
 
-        layout = QVBoxLayout()
+        # Créez un widget QWebEngineView pour afficher le contenu HTML
+        self.webview = QWebEngineView(self)
+        self.webview.setGeometry(0, 0, 800, 600)
 
-        help_label = QLabel("Bienvenue dans l'aide de l'application Raptor Import.")
-        help_label.setStyleSheet(white_text)
-        layout.addWidget(help_label)
+        # Chargez le fichier HTML dans le widget QWebEngineView
+        self.webview.setHtml(open('help.html').read())
 
-        back_button = QPushButton('Fermer', self)
+        back_button = QPushButton('Retour', self)
+        back_button.setGeometry(10, 10, 75, 30)
         back_button.clicked.connect(self.close)
-        back_button.setStyleSheet(button_styles["default"])
-        layout.addWidget(back_button)
-
-        self.setLayout(layout)
-
-        # Appliquez le style du fond d'application à la fenêtre d'aide
-        self.setStyleSheet(app_style)
 
 class Application(QMainWindow):
     def __init__(self):
@@ -35,7 +35,9 @@ class Application(QMainWindow):
         self.setWindowTitle("Raptor Import")
         self.setFixedSize(450, 155)
         self.in_options_page = False
-
+        
+        self.help_window = None  # Gardez une référence à la fenêtre d'aide
+        
         main_layout = QVBoxLayout()
         central_widget = QWidget()
         central_widget.setLayout(main_layout)
@@ -135,9 +137,12 @@ class Application(QMainWindow):
         self.page_options.setLayout(layout)
 
     def show_help(self):
-        # Ouvrez la fenêtre d'aide dans une nouvelle fenêtre
-        help_window = HelpWindow()
-        help_window.exec_()  # Utilisez exec_() pour ouvrir la fenêtre en tant que dialogue modal
+        if self.help_window is None:
+            # Si la fenêtre d'aide n'existe pas encore, créez-la
+            self.help_window = HelpWindow()
+
+        # Ouvrez la fenêtre d'aide en utilisant exec_()
+        self.help_window.exec_()
 
     def show_main_page(self):
         # Retournez au menu principal depuis n'importe quelle page
@@ -171,7 +176,7 @@ class Application(QMainWindow):
             self.setFixedSize(500, 225)  # Changez la taille en 500x225
             self.stacked_widget.setCurrentWidget(self.page_options)
         self.in_options_page = not self.in_options_page
-        
+
     def toggle_always_on_top(self, state):
         if state == Qt.Checked:
             self.always_on_top = True
