@@ -67,21 +67,55 @@ button_styles = {
     """,
     
     "start_import": f"""
-            QPushButton {{
-                background-color: #db6b09; /* Orange personnalisé */
-                border: 2px solid #c25f08; /* Bordure légèrement plus foncée */
-                border-radius: {button_border_radius};
-                color: white;
-                padding: 10px 20px;
-                text-align: center;
-                font-size: {button_font_size};
-                font-family: {button_font_family};
-                font-weight: {button_font_weight};
-            }}
-            QPushButton:hover {{
-                background-color: #c25f08; /* Orange plus foncé au survol */
-            }}
-        """
+        QPushButton {{
+            background-color: #db6b09; /* Orange personnalisé */
+            border: 2px solid #c25f08; /* Bordure légèrement plus foncée */
+            border-radius: {button_border_radius};
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: {button_font_size};
+            font-family: {button_font_family};
+            font-weight: {button_font_weight};
+        }}
+        QPushButton:hover {{
+            background-color: #c25f08; /* Orange plus foncé au survol */
+        }}
+    """,
+    
+    "save_option": f"""
+        QPushButton {{
+            background-color: #00A600; /* Vert */
+            border: 2px solid #007D00; /* Bordure légèrement plus foncée */
+            border-radius: {button_border_radius};
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: {button_font_size};
+            font-family: {button_font_family};
+            font-weight: {button_font_weight};
+        }}
+        QPushButton:hover {{
+            background-color: #007D00; /* Vert plus foncé au survol */
+        }}
+    """,
+    
+    "help_option": f"""
+        QPushButton {{
+            background-color: #FFA500; /* Orange */
+            border: 2px solid #FF8400; /* Bordure légèrement plus foncée */
+            border-radius: {button_border_radius};
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: {button_font_size};
+            font-family: {button_font_family};
+            font-weight: {button_font_weight};
+        }}
+        QPushButton:hover {{
+            background-color: #FF8400; /* Orange plus foncé au survol */
+        }}
+    """
 }
 
 # Style pour le texte blanc
