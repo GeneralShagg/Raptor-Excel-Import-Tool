@@ -193,7 +193,7 @@ class Application(QMainWindow):
 
     def open_excel(self):
         # Utilisez la fonction open_excel du fichier fonctions.py
-        open_excel(self)
+        open_excel()
 
     def create_excel(self):
         # Utilisez la fonction create_excel du fichier fonctions.py
