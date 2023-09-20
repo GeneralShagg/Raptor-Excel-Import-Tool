@@ -10,9 +10,8 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtCore import Qt
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from styles import button_styles, app_style, white_text, white_edit_background
-
-# Importez les fonctions après les imports ci-dessus
 from fonctions import open_excel, create_excel, start_import, save_options
+from version import APP_NAME, APP_VERSION, APP_AUTHOR, APP_COPYRIGHT, APP_DEV, APP_PROD
 
 
 class HelpWindow(QDialog):
@@ -37,7 +36,7 @@ class Application(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Raptor Import")
+        self.setWindowTitle(f"{APP_NAME} v{APP_VERSION} {APP_DEV}")
         self.setFixedSize(450, 155)
         self.in_options_page = False
         
@@ -61,7 +60,7 @@ class Application(QMainWindow):
         self.create_main_page()
         self.create_options_page()
 
-        copyright_label = QLabel("© 2023 Michael Boucher. Tous droits réservés.")
+        copyright_label = QLabel(f"{APP_COPYRIGHT}")
         copyright_label.setStyleSheet("color: white; font-size: 10px;")
         main_layout.addWidget(copyright_label)
 
