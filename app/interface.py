@@ -1,6 +1,7 @@
 # Nom de l'auteur : Michaël Boucher
 # Date de création : 19 septembre 2023
 # Copyright (c) 2023 Michaël Boucher. Tous droits réservés.
+# interface.py
 
 from PyQt5.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QPushButton, QLabel, QLineEdit, QFileDialog,
@@ -9,6 +10,10 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtCore import Qt
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from styles import button_styles, app_style, white_text, white_edit_background
+
+# Importez les fonctions après les imports ci-dessus
+from fonctions import open_excel, create_excel, start_import, save_options
+
 
 class HelpWindow(QDialog):
     def __init__(self):
@@ -124,8 +129,8 @@ class Application(QMainWindow):
 
         buttons_layout = QHBoxLayout()
         buttons_layout.addWidget(save_button)
-        buttons_layout.addWidget(back_button)
         buttons_layout.addWidget(help_button)
+        buttons_layout.addWidget(back_button)
 
         layout.addWidget(raptor_executable_label)
         layout.addWidget(self.raptor_executable_edit)
@@ -188,30 +193,17 @@ class Application(QMainWindow):
             self.show()
 
     def open_excel(self):
-        message_box = QMessageBox()
-        message_box.setIcon(QMessageBox.Information)
-        message_box.setWindowTitle("Fonctionnalité non implémentée")
-        message_box.setText("Cette fonctionnalité n'a pas encore été implémentée. Veuillez attendre la prochaine mise à jour.")
-        message_box.exec_()
+        # Utilisez la fonction open_excel du fichier fonctions.py
+        open_excel(self)
 
     def create_excel(self):
-        message_box = QMessageBox()
-        message_box.setIcon(QMessageBox.Information)
-        message_box.setWindowTitle("Fonctionnalité non implémentée")
-        message_box.setText("Cette fonctionnalité n'a pas encore été implémentée. Veuillez attendre la prochaine mise à jour.")
-        message_box.exec_()
+        # Utilisez la fonction create_excel du fichier fonctions.py
+        create_excel(self)
 
     def start_import(self):
-        message_box = QMessageBox()
-        message_box.setIcon(QMessageBox.Information)
-        message_box.setWindowTitle("Fonctionnalité non implémentée")
-        message_box.setText("Cette fonctionnalité n'a pas encore été implémentée. Veuillez attendre la prochaine mise à jour.")
-        message_box.exec_()
+        # Utilisez la fonction start_import du fichier fonctions.py
+        start_import(self)
 
     def save_options(self):
-        message_box = QMessageBox()
-        message_box.setIcon(QMessageBox.Information)
-        message_box.setWindowTitle("Fonctionnalité non implémentée")
-        message_box.setText("Cette fonctionnalité n'a pas encore été implémentée. Veuillez attendre la prochaine mise à jour.")
-        message_box.exec_()
-
+        # Utilisez la fonction save_options du fichier fonctions.py
+        save_options(self)
