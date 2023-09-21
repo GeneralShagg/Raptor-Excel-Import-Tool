@@ -3,6 +3,7 @@
 # Copyright (c) 2023 Michaël Boucher. Tous droits réservés.
 # interface.py
 
+import time
 from PyQt5.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QPushButton, QLabel, QLineEdit, QFileDialog,
     QCheckBox, QHBoxLayout, QMessageBox, QStackedWidget, QGridLayout, QDialog
@@ -10,8 +11,10 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtCore import Qt
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from styles import button_styles, app_style, white_text, white_edit_background
-from fonctions import open_excel, create_excel, start_import, save_options
+from fonctions import start_import, save_options
+from raptor import is_raptor_open, get_raptor_window, select_raptor_window, maximize_raptor
 from version import APP_NAME, APP_VERSION, APP_AUTHOR, APP_COPYRIGHT, APP_DEV, APP_PROD
+from excel import open_excel, create_excel
 
 
 class HelpWindow(QDialog):
@@ -35,7 +38,7 @@ class HelpWindow(QDialog):
 class Application(QMainWindow):
     def __init__(self):
         super().__init__()
-
+               
         self.setWindowTitle(f"{APP_NAME} v{APP_VERSION} {APP_DEV}")
         self.setFixedSize(450, 155)
         self.in_options_page = False
@@ -140,13 +143,21 @@ class Application(QMainWindow):
 
         self.page_options.setLayout(layout)
 
+    # Ajoutez cette méthode à votre classe Application
     def show_help(self):
-        if self.help_window is None:
-            # Si la fenêtre d'aide n'existe pas encore, créez-la
-            self.help_window = HelpWindow()
+        # Vérifiez si l'option "Toujours afficher par-dessus les autres applications" est activée
+        always_on_top_checked = self.always_on_top
 
-        # Ouvrez la fenêtre d'aide en utilisant exec_()
-        self.help_window.exec_()
+        # Désactivez temporairement l'option "Toujours afficher par-dessus les autres applications"
+        self.toggle_always_on_top(Qt.Unchecked)
+
+        # Créez la fenêtre d'aide
+        help_window = HelpWindow()
+        help_window.exec_()
+
+        # Réactivez l'option "Toujours afficher par-dessus les autres applications" si elle était activée auparavant
+        if always_on_top_checked:
+            self.toggle_always_on_top(Qt.Checked)
 
     def show_main_page(self):
         # Retournez au menu principal depuis n'importe quelle page
@@ -192,16 +203,22 @@ class Application(QMainWindow):
             self.show()
 
     def open_excel(self):
-        # Utilisez la fonction open_excel du fichier fonctions.py
+        # Utilisez la fonction open_excel du fichier excel.py
         open_excel()
 
     def create_excel(self):
-        # Utilisez la fonction create_excel du fichier fonctions.py
+        # Utilisez la fonction create_excel du fichier excel.py
         create_excel(self)
 
     def start_import(self):
-        # Utilisez la fonction start_import du fichier fonctions.py
-        start_import(self)
+        # Utilisez la fonction start_import du fichier raptor.py
+        is_open = is_raptor_open()
+        raptor_win = get_raptor_window()
+        selected = select_raptor_window()
+        maximized = maximize_raptor()
+        # wait = 2
+        # time.sleep(wait)
+        # start_import(self)
 
     def save_options(self):
         # Utilisez la fonction save_options du fichier fonctions.py

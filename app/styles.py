@@ -1,8 +1,8 @@
 # Nom de l'auteur : Michaël Boucher
 # Date de création : 19 septembre 2023
 # Copyright (c) 2023 Michaël Boucher. Tous droits réservés.
-
 # styles.py
+
 from PyQt5.QtWidgets import QPushButton, QLineEdit, QLabel
 
 # Définissez les variables pour la police et la taille de police
